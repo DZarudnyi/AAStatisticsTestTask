@@ -1,29 +1,22 @@
-package dmytro.zarudnyi.statisticstesttask.model;
+package dmytro.zarudnyi.statisticstesttask.model.user;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import java.util.Collection;
+import java.util.Set;
+
 import lombok.Data;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
-@Entity
-@SQLDelete(sql = "UPDATE users SET is_deleted = TRUE WHERE id = ?")
-@Where(clause = "is_deleted = FALSE")
-@Table(name = "users")
+@Document(collation = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     @Column(unique = true)
     @NotBlank
     private String email;
@@ -35,8 +28,7 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     @NotBlank
     private String lastName;
-    @Column(name = "is_deleted", nullable = false)
-    private boolean isDeleted = false;
+    private Set<Role> roles;
 
     @Override
     public String getUsername() {
@@ -45,7 +37,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .toList();
     }
 
     @Override
@@ -70,6 +64,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return !isDeleted;
+        return true;
     }
 }
