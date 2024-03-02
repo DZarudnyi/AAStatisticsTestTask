@@ -24,4 +24,9 @@ public class SalesAndTrafficByDateServiceImpl implements SalesAndTrafficByDateSe
     public List<SalesAndTrafficByDate> findByDate(Date date) {
         return salesAndTrafficByDateRepository.findByDate(date);
     }
+
+    @Override
+    public List<SalesAndTrafficByDate> findByDateBetween(Date dateStart, Date dateEnd) {
+        return salesAndTrafficByDateRepository.findByDateBetween(dateStart, dateEnd);
+    }
 }

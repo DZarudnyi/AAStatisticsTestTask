@@ -1,6 +1,6 @@
 package dmytro.zarudnyi.statisticstesttask.model.salesandtraffic.sales;
 
-import jakarta.persistence.Id;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "sales_by")

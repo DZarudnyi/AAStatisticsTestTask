@@ -24,11 +24,19 @@ public class StatisticsController {
     public List<SalesAndTrafficByDate> getStatisticsForAllTime() {
         return salesAndTrafficByDateService.findAll();
     }
-    @GetMapping("/date")
+    @GetMapping("/date/selected")
     public List<SalesAndTrafficByDate> getStatisticsBySelectedDate(
             @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date
     ) {
         return salesAndTrafficByDateService.findByDate(date);
+    }
+
+    @GetMapping("/date/between")
+    public List<SalesAndTrafficByDate> getStatisticsBySelectedDate(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateStart,
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date dateEnd
+    ) {
+        return salesAndTrafficByDateService.findByDateBetween(dateStart, dateEnd);
     }
 
     @GetMapping("/asin")
@@ -36,8 +44,13 @@ public class StatisticsController {
         return salesAndTrafficByAsinService.findAll();
     }
 
-    @GetMapping("/asin")
+    @GetMapping("/asin/selected")
     public List<SalesAndTrafficByAsin> getStatisticsBySelectedAsins(@RequestParam("asin") String asin) {
         return salesAndTrafficByAsinService.findByAsin(asin);
+    }
+
+    @GetMapping("/asin/in")
+    public List<SalesAndTrafficByAsin> getStatisticsBySelectedAsins(@RequestParam("asin") List<String> asins) {
+        return salesAndTrafficByAsinService.findByAsinIn(asins);
     }
 }

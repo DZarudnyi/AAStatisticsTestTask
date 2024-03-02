@@ -8,4 +8,6 @@ public interface SalesAndTrafficByDateService {
     List<SalesAndTrafficByDate> findAll();
 
     List<SalesAndTrafficByDate> findByDate(Date date);
+
+    List<SalesAndTrafficByDate> findByDateBetween(Date dateStart, Date dateEnd);
 }

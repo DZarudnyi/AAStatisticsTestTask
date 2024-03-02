@@ -1,34 +1,32 @@
 package dmytro.zarudnyi.statisticstesttask.model.user;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
+import org.springframework.data.annotation.Id;
 import jakarta.validation.constraints.NotBlank;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import lombok.Data;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
-@Document(collation = "users")
+@Document(collection = "users")
 public class User implements UserDetails {
     @Id
     private String id;
-    @Column(unique = true)
+    @Indexed(unique = true)
     @NotBlank
     private String email;
     @NotBlank
     private String password;
-    @Column(name = "first_name")
     @NotBlank
     private String firstName;
-    @Column(name = "last_name")
     @NotBlank
     private String lastName;
-    private Set<Role> roles;
 
     @Override
     public String getUsername() {
@@ -37,9 +35,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .toList();
+        return List.of();
     }
 
     @Override

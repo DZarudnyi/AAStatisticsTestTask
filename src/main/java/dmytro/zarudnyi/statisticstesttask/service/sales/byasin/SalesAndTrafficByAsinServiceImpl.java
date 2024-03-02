@@ -23,4 +23,9 @@ public class SalesAndTrafficByAsinServiceImpl implements SalesAndTrafficByAsinSe
     public List<SalesAndTrafficByAsin> findByAsin(String asin) {
         return salesAndTrafficByAsinRepository.findByParentAsin(asin);
     }
+
+    @Override
+    public List<SalesAndTrafficByAsin> findByAsinIn(List<String> asins) {
+        return salesAndTrafficByAsinRepository.findByParentAsinIn(asins);
+    }
 }

@@ -7,4 +7,6 @@ public interface SalesAndTrafficByAsinService {
     List<SalesAndTrafficByAsin> findAll();
 
     List<SalesAndTrafficByAsin> findByAsin(String asin);
+
+    List<SalesAndTrafficByAsin> findByAsinIn(List<String> asins);
 }
