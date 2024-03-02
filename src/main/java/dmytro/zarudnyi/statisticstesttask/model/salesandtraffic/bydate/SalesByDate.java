@@ -7,8 +7,10 @@ import dmytro.zarudnyi.statisticstesttask.model.salesandtraffic.sales.AverageSel
 import dmytro.zarudnyi.statisticstesttask.model.salesandtraffic.sales.ClaimsAmount;
 import dmytro.zarudnyi.statisticstesttask.model.salesandtraffic.sales.SalesBy;
 import dmytro.zarudnyi.statisticstesttask.model.salesandtraffic.sales.ShippedProductSales;
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Data
 @Document(collection = "sales_by")
 public class SalesByDate extends SalesBy {
     private AverageSalesPerOrderItem averageSalesPerOrderItem;

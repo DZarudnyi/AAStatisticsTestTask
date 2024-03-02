@@ -1,7 +1,9 @@
 package dmytro.zarudnyi.statisticstesttask.model.salesandtraffic.traffic;
 
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Data
 @Document(collection = "traffic")
 public class TrafficByAsin extends Traffic {
     private float browserSessionPercentage;
