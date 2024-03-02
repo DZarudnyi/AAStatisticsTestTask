@@ -4,6 +4,7 @@ import dmytro.zarudnyi.statisticstesttask.model.salesandtraffic.byasin.SalesAndT
 import dmytro.zarudnyi.statisticstesttask.repository.SalesAndTrafficByAsinRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,13 +12,15 @@ import org.springframework.stereotype.Service;
 public class SalesAndTrafficByAsinServiceImpl implements SalesAndTrafficByAsinService {
     private final SalesAndTrafficByAsinRepository salesAndTrafficByAsinRepository;
 
+    @Cacheable(value = "salesandtrafficbyasin")
     @Override
     public List<SalesAndTrafficByAsin> findAll() {
         return salesAndTrafficByAsinRepository.findAll();
     }
 
+    @Cacheable(value = "salesandtrafficbyasin")
     @Override
     public List<SalesAndTrafficByAsin> findByAsin(String asin) {
-        return salesAndTrafficByAsinRepository.findByParentAsin(asinadd);
+        return salesAndTrafficByAsinRepository.findByParentAsin(asin);
     }
 }
